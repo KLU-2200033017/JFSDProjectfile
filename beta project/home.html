@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectNest Dashboard</title>
+    <link rel="stylesheet" href="hstyles.css">
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 40%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .modal-body textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .modal-footer {
+            text-align: right;
+        }
+
+        .close-btn, .submit-btn {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            background-color: red;
+            color: white;
+        }
+
+        .submit-btn {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .submit-btn:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">projectnest</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Dashboard</a>
+            <a href="#">Students</a>
+        </nav>
+        <div class="account">Account</div>
+    </header>
+
+    <main>
+        <!-- Student Portfolios Section -->
+        <section class="card">
+            <h2>View student portfolio's</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Portfolio Link</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>Arul</td>
+                    <td>2200033017</td>
+                    <td><a href="https://www.cristianoronaldo.com/#cr7">http://www.myportfolio.com</a></td>
+                    <td>CSE-H</td>
+                    <td><button class="provide-feedback-btn" data-student="Arul">ProvideFeedback</button></td>
+                </tr>
+                <tr>
+                    <td>Rahul</td>
+                    <td>2200033018</td>
+                    <td><a href="https://www.iamtamara.design/">http://www.myportfolio.com</a></td>
+                    <td>CSE-H</td>
+                    <td><button class="provide-feedback-btn" data-student="Rahul">ProvideFeedback</button></td>
+                </tr>
+                <tr>
+                    <td>Harshith</td>
+                    <td>2200033019</td>
+                    <td><a href="https://www.byalicelee.com/">http://www.myportfolio.com</a></td>
+                    <td>CSE-H</td>
+                    <td><button class="provide-feedback-btn" data-student="Harshith">ProvideFeedback</button></td>
+                </tr>
+            </table>
+            <button class="view-all">View all</button>
+        </section>
+
+        <!-- Student Projects Section -->
+        <section class="card">
+            <h2>View student projects</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Project Link</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>Arul</td>
+                    <td>2200033017</td>
+                    <td><a href="#">View Project</a></td>
+                    <td>CSE-H</td>
+                    <td><button class="provide-feedback-btn" data-student="Arul">ProvideFeedback</button></td>
+                </tr>
+                <tr>
+                    <td>Rahul</td>
+                    <td>2200033018</td>
+                    <td><a href="#">View Project</a></td>
+                    <td>CSE-H</td>
+                    <td><button class="provide-feedback-btn" data-student="Rahul">ProvideFeedback</button></td>
+                </tr>
+                <tr>
+                    <td>Harshith</td>
+                    <td>2200033019</td>
+                    <td><a href="#">View Project</a></td>
+                    <td>CSE-H</td>
+                    <td><button class="provide-feedback-btn" data-student="Harshith">ProvideFeedback</button></td>
+                </tr>
+            </table>
+            <button class="view-all">View all</button>
+        </section>
+
+        <!-- Suggestion and Task Sections -->
+        <div class="flex-container">
+            <section class="card suggestion">
+                <h2>Give suggestion to student</h2>
+                <label for="studentName">Student Name</label>
+                <input type="text" id="studentName">
+                <label for="suggestion">Suggestion</label>
+                <textarea id="suggestion"></textarea>
+                <button>Submit</button>
+            </section>
+
+            <section class="card task">
+                <h2>Assign tasks to student</h2>
+                <label for="studentTaskName">Student Name</label>
+                <input type="text" id="studentTaskName">
+                <label>Task</label>
+                <div class="radio-group">
+                    <input type="radio" id="project" name="task" value="Project">
+                    <label for="project">Project</label>
+                    <input type="radio" id="portfolio" name="task" value="Portfolio">
+                    <label for="portfolio">Portfolio</label>
+                </div>
+                <textarea placeholder="Value"></textarea>
+                <button>Assign</button>
+            </section>
+        </div>
+
+        <!-- Feedback Modal -->
+        <div id="feedbackModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">Provide Feedback</div>
+                <div class="modal-body">
+                    <p id="studentNameDisplay"></p>
+                    <textarea placeholder="Enter your feedback here"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="close-btn" onclick="closeModal()">Cancel</button>
+                    <button class="submit-btn" onclick="submitFeedback()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Open the modal
+        const openModal = (studentName) => {
+            document.getElementById('studentNameDisplay').innerText = `Feedback for: ${studentName}`;
+            document.getElementById('feedbackModal').style.display = 'block';
+        };
+
+        // Close the modal
+        const closeModal = () => {
+            document.getElementById('feedbackModal').style.display = 'none';
+        };
+
+        // Handle feedback submission
+        const submitFeedback = () => {
+            const feedback = document.querySelector('.modal-body textarea').value;
+            if (feedback.trim() === '') {
+                alert('Please provide feedback before submitting.');
+            } else {
+                alert('Feedback submitted successfully!');
+                closeModal();
+            }
+        };
+
+        // Attach event listeners to all "ProvideFeedback" buttons
+        document.querySelectorAll('.provide-feedback-btn').forEach(button => {
+            button.addEventListener('click', () => openModal(button.getAttribute('data-student')));
+        });
+    </script>
+</body>
+</html>
